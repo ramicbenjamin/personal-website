@@ -4,6 +4,9 @@ import SocialLinks from '@/components/SocialLinks.vue'
 
 // State to track hover
 const isHovered = ref(false);
+
+// File download link
+const downloadLink = "https://drive.google.com/uc?id=1oioZ9Vs6n0qzypORYAhtPSRXp9tORNQK&export=download";
 </script>
 
 <template>
@@ -22,7 +25,7 @@ const isHovered = ref(false);
       />
       <a
         v-if="isHovered"
-        href="@/assets/Benjamin_Ramic_Software_Engineer_CV_website.pdf"
+        :href="downloadLink"
         download
         class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 text-white text-lg font-semibold transition-opacity"
       >
