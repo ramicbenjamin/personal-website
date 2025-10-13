@@ -16,7 +16,7 @@ const navItems = [
 ] as const
 
 // Current section (in-page view)
-const currentView = ref<'home' | 'about' | 'experience'>('home')
+const currentView = ref<'home' | 'about' | 'experience' | 'beyond'>('home')
 
 // Async-loaded components for other views
 const viewComponents = {
@@ -27,7 +27,7 @@ const viewComponents = {
 }
 
 // Toggle view on click
-function setView(key: 'home' | 'about' | 'experience') {
+function setView(key: 'home' | 'about' | 'experience' | 'beyond') {
   currentView.value = key
   mobileOpen.value = false
 }
