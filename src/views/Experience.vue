@@ -103,7 +103,8 @@ type Notable = {
   title: string
   org: string
   orgUrl?: string
-  dates: string
+  startDate: string
+  endDate: string | null
   location: string
   blurb?: string
   highlights?: string[]           // bullet points (can include a linked item)
@@ -118,14 +119,12 @@ const notableProjects = ref<Notable[]>([
   {
     title: 'Fundraising Team Leader',
     org: 'ValueUp: Mind Your Own Business',
-    dates: 'Dec 2016 – May 2017 (6 mos)',
+    startDate: '2016-12-01',
+    endDate: '2017-05-01',
     location: 'Sarajevo · Voluntary',
     blurb:
       'Educationally motivating conference bringing together youth in Bosnia and Herzegovina with domestic and international startup founders and experts.',
-    // put the video link as a regular bullet (will render as link when text matches linkText)
-    highlights: [
-      'See Conference Aftermovie',
-    ],
+    highlights: ['See Conference Aftermovie'],
     linkText: 'See Conference Aftermovie',
     linkHref: 'https://www.youtube.com/watch?v=_CxzyQUY8ZU',
     contactNote: 'Contact information for referees who can confirm references available upon request.',
@@ -142,7 +141,8 @@ const notableProjects = ref<Notable[]>([
     title: 'Local Committee Coordinator',
     org: 'Mozaik Foundation · Youth Bank',
     orgUrl: 'https://mozaik.ba/en/',
-    dates: 'Mar 2011 – Oct 2014 (3 yrs, 8 mos)',
+    startDate: '2011-03-01',
+    endDate: '2014-10-01',
     location: 'Sarajevo and Doboj Jug · Voluntary',
     blurb:
       'Youth Bank is a program by the Mozaik Foundation that empowers thousands of young people each year through community work.',
@@ -164,14 +164,14 @@ const openNotables = ref<Set<number>>(new Set())
 
 function toggleJob(idx: number) {
   const next = new Set(openJobs.value)
-  next.has(idx) ? next.delete(idx) : next.add(idx)
+  if (next.has(idx)) { next.delete(idx) } else { next.add(idx) }
   openJobs.value = next
 }
 function isJobOpen(idx: number) { return openJobs.value.has(idx) }
 
 function toggleNotable(idx: number) {
   const next = new Set(openNotables.value)
-  next.has(idx) ? next.delete(idx) : next.add(idx)
+  if (next.has(idx)) { next.delete(idx) } else { next.add(idx) }
   openNotables.value = next
 }
 function isNotableOpen(idx: number) { return openNotables.value.has(idx) }
@@ -257,8 +257,9 @@ function badgeFor(tech: string): { src: string; alt: string } {
           :key="idx"
           class="rounded-2xl ring-1 ring-white/10 overflow-hidden"
         >
+          <!-- Header / Summary -->
           <button
-            class="w-full text-left"
+            class="w-full text-left cursor-pointer"
             :aria-expanded="isJobOpen(idx) ? 'true' : 'false'"
             :aria-controls="`exp-panel-${idx}`"
             @click="toggleJob(idx)"
@@ -269,8 +270,11 @@ function badgeFor(tech: string): { src: string; alt: string } {
             >
               <div class="flex items-start justify-between gap-4">
                 <div class="min-w-0">
-                  <h3 class="text-2xl font-bold truncate">{{ exp.title }}</h3>
-                  <p class="text-sm text-white/90">
+                  <!-- Wrapped mobile title, no ellipsis -->
+                  <h3 class="font-bold text-xl sm:text-2xl leading-snug break-words whitespace-normal">
+                    {{ exp.title }}
+                  </h3>
+                  <p class="text-sm text-white/90 whitespace-normal break-words">
                     <template v-if="exp.companyUrl">
                       <a
                         :href="exp.companyUrl"
@@ -282,12 +286,13 @@ function badgeFor(tech: string): { src: string; alt: string } {
                     <template v-else>{{ exp.company }}</template>
                     · {{ exp.employmentType }}
                   </p>
-                  <p class="text-sm text-white/80">{{ exp.location }}</p>
+                  <p class="text-sm text-white/80 whitespace-normal break-words">{{ exp.location }}</p>
                   <p class="text-sm text-white/80">
                     {{ formatDateRange(exp.startDate, exp.endDate) }}
                   </p>
                 </div>
 
+                <!-- Chevron -->
                 <svg
                   class="h-6 w-6 flex-shrink-0 transition-transform"
                   :class="isJobOpen(idx) ? 'rotate-180' : ''"
@@ -314,6 +319,7 @@ function badgeFor(tech: string): { src: string; alt: string } {
             </div>
           </button>
 
+          <!-- Details / Panel -->
           <transition
             enter-active-class="transition duration-200 ease-out"
             enter-from-class="opacity-0 -translate-y-1"
@@ -388,8 +394,9 @@ function badgeFor(tech: string): { src: string; alt: string } {
             :key="i"
             class="rounded-2xl ring-1 ring-white/10 overflow-hidden"
           >
+            <!-- Header -->
             <button
-              class="w-full text-left"
+              class="w-full text-left cursor-pointer"
               :aria-expanded="isNotableOpen(i) ? 'true' : 'false'"
               :aria-controls="`notable-panel-${i}`"
               @click="toggleNotable(i)"
@@ -400,8 +407,11 @@ function badgeFor(tech: string): { src: string; alt: string } {
               >
                 <div class="flex items-start justify-between gap-4">
                   <div class="min-w-0">
-                    <h3 class="text-xl font-semibold truncate">{{ n.title }}</h3>
-                    <p class="text-sm text-white/90">
+                    <!-- Wrapped mobile title -->
+                    <h3 class="font-semibold text-lg sm:text-xl leading-snug break-words whitespace-normal">
+                      {{ n.title }}
+                    </h3>
+                    <p class="text-sm text-white/90 whitespace-normal break-words">
                       <template v-if="n.orgUrl">
                         <a
                           :href="n.orgUrl"
@@ -412,7 +422,9 @@ function badgeFor(tech: string): { src: string; alt: string } {
                       </template>
                       <template v-else>{{ n.org }}</template>
                     </p>
-                    <p class="text-sm text-white/80">{{ n.dates }} · {{ n.location }}</p>
+                    <p class="text-sm text-white/80 whitespace-normal break-words">
+                      {{ formatDateRange(n.startDate, n.endDate) }} · {{ n.location }}
+                    </p>
                   </div>
 
                   <svg
@@ -428,6 +440,7 @@ function badgeFor(tech: string): { src: string; alt: string } {
               </div>
             </button>
 
+            <!-- Panel -->
             <transition
               enter-active-class="transition duration-200 ease-out"
               enter-from-class="opacity-0 -translate-y-1"

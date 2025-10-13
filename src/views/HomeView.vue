@@ -12,6 +12,7 @@ const navItems = [
   { key: 'home', label: 'Home' },
   { key: 'about', label: 'About' },
   { key: 'experience', label: 'Experience' },
+  { key: 'beyond', label: 'Beyond Engineering' }
 ] as const
 
 // Current section (in-page view)
@@ -22,6 +23,7 @@ const viewComponents = {
   home: Intro,
   about: defineAsyncComponent(() => import('@/views/About.vue')),
   experience: defineAsyncComponent(() => import('@/views/Experience.vue')),
+  beyond: defineAsyncComponent(() => import('@/views/BeyondEngineering.vue'))
 }
 
 // Toggle view on click

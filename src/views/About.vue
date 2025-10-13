@@ -69,7 +69,7 @@ onMounted(async () => {
         <div class="bg-gradient-to-br from-blue-700 to-blue-500 p-6 rounded-lg shadow ring-1 ring-white/10">
           <h3 class="text-xl font-bold">Technical Excellence</h3>
           <p class="mt-4 text-gray-100">
-            Grounded in core engineering principles—clear abstractions, sound architecture, and thoughtful trade-offs—to deliver maintainable, performant, and user-centered systems that scale.
+            Grounded in core engineering principles, clear abstractions, sound architecture, and thoughtful trade-offs, to deliver maintainable, performant, and user-centered systems that scale.
           </p>
         </div>
 
