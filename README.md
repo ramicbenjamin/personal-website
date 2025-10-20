@@ -1,39 +1,69 @@
-# personal-website
+# 🌐 Personal Website
 
-This template should help get you started developing with Vue 3 in Vite.
+> ⚠️ **Note:**  
+> This is the source code for my **personal website**.  
+> It’s a custom-built project and **should not be forked or reused directly**.  
+> You’re welcome to look through it for **inspiration or learning purposes**.
 
-## Recommended IDE Setup
+---
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🧭 Overview
 
-## Type Support for `.vue` Imports in TS
+Built with **Vue 3**, **Vite**, and **TypeScript**, this website serves as my personal portfolio and presentation space.  
+It follows a simple, component-based structure and uses **Tailwind CSS** for styling.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+---
 
-## Customize configuration
+## ⚙️ Setup
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+Install dependencies:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Run the development server:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Visit the app at:
+
+```
+http://localhost:5173
+```
+
+Build for production:
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Preview the built site:
+
+```sh
+npm run preview
+```
+
+---
+
+## 🧹 Linting
+
+To check and fix code style issues:
 
 ```sh
 npm run lint
 ```
+
+---
+
+## 🪶 License
+
+This project is **private**.  
+You may **not redistribute, modify, or publish** this code.  
+Feel free to use it as **inspiration** for your own portfolio.
+
+---
+
+📧 For questions or collaboration, feel free to reach out!

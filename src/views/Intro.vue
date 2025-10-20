@@ -11,7 +11,6 @@ function setFlip(v: boolean) { flipped.value = v }
     class="w-full flex flex-col items-center justify-center px-6 py-16 text-center"
     style="min-height: calc(100svh - var(--header-h, 64px) - var(--footer-h, 180px));"
   >
-    <!-- Coin Flip Avatar -->
     <div
       class="relative w-48 h-48 cursor-pointer perspective-1000"
       @mouseenter="setFlip(true)"
@@ -21,7 +20,6 @@ function setFlip(v: boolean) { flipped.value = v }
       role="img"
     >
       <div class="flip-inner" :class="{ 'is-flipped': flipped }">
-        <!-- FRONT -->
         <div class="flip-face flip-front rounded-full overflow-hidden shadow-lg">
           <img
             src="@/assets/ben.png"
@@ -32,7 +30,6 @@ function setFlip(v: boolean) { flipped.value = v }
           />
         </div>
 
-        <!-- BACK -->
         <div
           class="flip-face flip-back rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-teal-700/90 to-slate-900/90 text-white flex flex-col items-center justify-center px-4"
         >
@@ -44,7 +41,6 @@ function setFlip(v: boolean) { flipped.value = v }
       </div>
     </div>
 
-    <!-- Title -->
     <h1 class="text-4xl md:text-6xl font-extrabold tracking-wide mt-6">
       Hi, I’m <span class="text-teal-400">Benjamin Ramić</span>
     </h1>

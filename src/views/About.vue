@@ -28,9 +28,7 @@ onMounted(async () => {
     const item = resp?.data?.items?.[0]
     reputation.value = typeof item?.reputation === 'number' ? item.reputation : null
   } catch (e) {
-    // Non-fatal; we just show '—'
     err.value = 'Failed to load reputation'
-    // console.error(e)
   } finally {
     loading.value = false
   }
@@ -38,9 +36,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- Inherit site background; just use section blocks -->
   <section class="w-full px-6 py-12">
-    <!-- Header -->
     <div class="text-center space-y-6">
       <h1 class="text-4xl md:text-6xl font-extrabold tracking-wide">
         About <span class="text-teal-400">Me</span>
@@ -53,7 +49,6 @@ onMounted(async () => {
       </p>
     </div>
 
-    <!-- Career Highlights -->
     <div class="mt-12 max-w-5xl w-full mx-auto space-y-6">
       <h2 class="text-3xl font-bold text-teal-400">Career Highlights</h2>
 
@@ -123,7 +118,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- Personal Philosophy -->
     <div class="mt-12 max-w-5xl w-full mx-auto space-y-6 text-center">
       <h2 class="text-3xl font-bold text-teal-400">Personal Philosophy</h2>
       <p class="text-lg text-gray-300">
@@ -165,7 +159,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- Current Technologies -->
     <div class="mt-16 text-center px-6 max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold text-teal-400 mb-6">🛠️ Current Technologies & Tools</h2>
       <div class="flex flex-wrap justify-center gap-4">
@@ -178,7 +171,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- Worked With -->
     <div class="mt-12 text-center px-6 max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold text-teal-400 mb-6">📚 Technologies & Tools that I Worked With</h2>
       <div class="flex flex-wrap justify-center gap-4">
@@ -197,7 +189,6 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!-- Contact -->
     <div class="mt-12 max-w-5xl w-full mx-auto space-y-6 text-center">
       <h2 class="text-3xl font-bold text-teal-400">Contact Me</h2>
       <p class="text-lg text-gray-300">
