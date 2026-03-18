@@ -76,7 +76,9 @@ function badgeForTechnology(technology: string): { src: string; alt: string } {
     'HTML5': 'HTML','CSS3': 'CSS',
     'Github': 'GitHub',
     'ReactJS': 'React','React.js': 'React',
-    'SequelizeJS': 'Sequelize'
+    'SequelizeJS': 'Sequelize',
+    'Elastic Search': 'Elasticsearch',
+    'OpenAI': 'AI Tools','AI': 'AI Tools','AI tools': 'AI Tools','Ai Tools': 'AI Tools'
   }
   const canonical = aliasToCanonical[normalized] ?? normalized
   const map: Record<string, string> = {
@@ -85,7 +87,9 @@ function badgeForTechnology(technology: string): { src: string; alt: string } {
     'TypeScript': 'https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white',
     'Tailwind CSS': 'https://img.shields.io/badge/Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white',
     'MySQL': 'https://img.shields.io/badge/MySQL-007396?style=for-the-badge&logo=mysql&logoColor=white',
+    'Redis': 'https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white',
     'PostgreSQL': 'https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white',
+    'Elasticsearch': 'https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white',
     'AWS': 'https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white',
     'JavaScript': 'https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black',
     'React': 'https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black',
@@ -106,7 +110,8 @@ function badgeForTechnology(technology: string): { src: string; alt: string } {
     'HTML': 'https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white',
     'CSS': 'https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white',
     'AWS Lambda': 'https://img.shields.io/badge/AWS%20Lambda-FF9900?style=for-the-badge&logo=awslambda&logoColor=white',
-    'REST APIs': 'https://img.shields.io/badge/REST_APIs-02569B?style=for-the-badge&logo=apachespark&logoColor=white'
+    'REST APIs': 'https://img.shields.io/badge/REST_APIs-02569B?style=for-the-badge&logo=apachespark&logoColor=white',
+    'AI Tools': 'https://img.shields.io/badge/AI%20Tools-7C3AED?style=for-the-badge&logo=openai&logoColor=white'
   }
   const url = map[canonical]
   if (url) return { src: url, alt: canonical }
@@ -114,18 +119,103 @@ function badgeForTechnology(technology: string): { src: string; alt: string } {
   return { src: `https://img.shields.io/badge/${label}-555?style=for-the-badge`, alt: canonical }
 }
 
-const headerGradients = [
-  'from-fuchsia-700 to-purple-600',
-  'from-emerald-700 to-emerald-500',
-  'from-indigo-700 to-indigo-500',
-  'from-cyan-700 to-sky-500',
-  'from-rose-700 to-rose-500',
-  'from-amber-600 to-yellow-500',
-  'from-teal-700 to-teal-500',
-  'from-violet-700 to-violet-500',
-  'from-slate-700 to-slate-500',
-  'from-blue-700 to-blue-500'
-]
+type CompanyTheme = {
+  base: string
+  headerStart: string
+  headerEnd: string
+  panelTint: string
+}
+
+function getCompanyTheme(company: CompanyGroup): CompanyTheme {
+  const companyName = (company.company || '').trim().toLowerCase()
+  const themes: Record<string, CompanyTheme> = {
+    'car & classic': {
+      base: '#204021',
+      headerStart: '#19321A',
+      headerEnd: '#2A592D',
+      panelTint: '#204021'
+    },
+    'rsvpify': {
+      base: '#775AE0',
+      headerStart: '#5A44B8',
+      headerEnd: '#8D74EC',
+      panelTint: '#775AE0'
+    },
+    'faculty of electrical engineering university of sarajevo': {
+      base: '#111E2A',
+      headerStart: '#0D1721',
+      headerEnd: '#1C3247',
+      panelTint: '#111E2A'
+    },
+    'pragmatio solutions': {
+      base: '#3EC195',
+      headerStart: '#258E71',
+      headerEnd: '#4FCDA5',
+      panelTint: '#3EC195'
+    }
+  }
+
+  return themes[companyName] ?? {
+    base: '#475569',
+    headerStart: '#334155',
+    headerEnd: '#64748B',
+    panelTint: '#475569'
+  }
+}
+
+function hexToRgba(hex: string, alpha: number) {
+  const normalized = hex.replace('#', '')
+  const full = normalized.length === 3
+    ? normalized.split('').map(char => `${char}${char}`).join('')
+    : normalized
+  const int = Number.parseInt(full, 16)
+  const r = (int >> 16) & 255
+  const g = (int >> 8) & 255
+  const b = int & 255
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
+
+function getCompanyHeaderStyle(company: CompanyGroup) {
+  const theme = getCompanyTheme(company)
+
+  return {
+    backgroundImage: [
+      `radial-gradient(circle at 100% 0%, ${hexToRgba('#FFFFFF', 0.18)} 0%, transparent 42%)`,
+      `linear-gradient(135deg, ${theme.headerStart} 0%, ${theme.headerEnd} 100%)`
+    ].join(', ')
+  }
+}
+
+function getCompanyCardStyle(company: CompanyGroup) {
+  const theme = getCompanyTheme(company)
+
+  return {
+    borderColor: hexToRgba(theme.base, 0.45),
+    boxShadow: [
+      `0 18px 36px -30px ${hexToRgba(theme.base, 0.75)}`,
+      `0 0 0 1px ${hexToRgba(theme.base, 0.18)}`
+    ].join(', ')
+  }
+}
+
+function getCompanyPanelStyle(company: CompanyGroup) {
+  const theme = getCompanyTheme(company)
+
+  return {
+    borderTopColor: hexToRgba(theme.base, 0.38),
+    background: `linear-gradient(180deg, ${hexToRgba(theme.panelTint, 0.14)} 0%, rgba(15, 23, 42, 0.72) 38%, rgba(15, 23, 42, 0.86) 100%)`
+  }
+}
+
+function getCompanyHintChipStyle(company: CompanyGroup) {
+  const theme = getCompanyTheme(company)
+
+  return {
+    backgroundColor: hexToRgba(theme.base, 0.2),
+    borderColor: hexToRgba(theme.base, 0.4),
+    boxShadow: `inset 0 0 0 1px ${hexToRgba('#FFFFFF', 0.08)}`
+  }
+}
 
 const openCompanies = ref<Set<number>>(new Set())
 function toggleCompanyAccordion(companyIndex: number) {
@@ -147,7 +237,9 @@ function roleCountLabel(count: number) {
     <article
       v-for="(company, companyIndex) in props.companyGroups"
       :key="`${company.company}-${companyIndex}`"
-      class="rounded-2xl ring-1 ring-white/10 overflow-hidden"
+      class="rounded-2xl border overflow-hidden transition-transform duration-300"
+      :class="!isCompanyAccordionOpen(companyIndex) ? 'hover:-translate-y-0.5' : ''"
+      :style="getCompanyCardStyle(company)"
     >
       <button
         class="group w-full text-left cursor-pointer"
@@ -157,8 +249,8 @@ function roleCountLabel(count: number) {
         @click="toggleCompanyAccordion(companyIndex)"
       >
         <div
-          class="p-6 md:p-7 bg-gradient-to-br text-white flex flex-col gap-2.5"
-          :class="headerGradients[companyIndex % headerGradients.length]"
+          class="p-6 md:p-7 text-white flex flex-col gap-2.5"
+          :style="getCompanyHeaderStyle(company)"
         >
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0">
@@ -168,7 +260,7 @@ function roleCountLabel(count: number) {
                     :href="company.companyUrl"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="underline decoration-white/30 hover:decoration-white"
+                    class="underline decoration-white/35 hover:decoration-white"
                   >{{ company.company }}</a>
                 </template>
                 <template v-else>{{ company.company }}</template>
@@ -187,7 +279,8 @@ function roleCountLabel(count: number) {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
               <span
-                class="hidden md:inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-xs text-white/90 tracking-wide"
+                class="hidden md:inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs text-white/90 tracking-wide"
+                :style="getCompanyHintChipStyle(company)"
               >
                 <span v-if="!isCompanyAccordionOpen(companyIndex)">Click to see more</span>
                 <span v-else>Click to hide</span>
@@ -222,7 +315,8 @@ function roleCountLabel(count: number) {
         <div
           v-show="isCompanyAccordionOpen(companyIndex)"
           :id="`company-panel-${companyIndex}`"
-          class="bg-slate-900/40 backdrop-blur px-6 md:px-8 py-6 md:py-8"
+          class="border-t backdrop-blur px-6 md:px-8 py-6 md:py-8"
+          :style="getCompanyPanelStyle(company)"
         >
           <div class="space-y-8 md:space-y-10">
             <section

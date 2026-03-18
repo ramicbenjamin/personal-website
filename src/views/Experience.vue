@@ -20,6 +20,24 @@ type CompanyGroup = {
 
 const companyGroups = ref<CompanyGroup[]>([
   {
+    company: 'Car & Classic',
+    companyUrl: 'https://www.carandclassic.com/',
+    technologies: ['Laravel', 'Vue.js', 'MySQL', 'Redis', 'Elasticsearch', 'Tailwind CSS', 'AWS', 'Git', 'AI Tools'],
+    roles: [
+      {
+        title: 'Senior Software Engineer',
+        employmentType: 'Full-time',
+        location: 'London, United Kingdom · Remote',
+        startDate: '2026-01-01',
+        endDate: null,
+        responsibilities: [
+          'Helping build Europe\'s No.1 classic car marketplace by developing scalable marketplace features and improving platform performance across buyer and seller journeys.',
+          'Contributing across the stack with Laravel and Vue.js, building reliable services, search-driven experiences, and production-ready infrastructure for continued growth.'
+        ]
+      }
+    ]
+  },
+  {
     company: 'RSVPify',
     companyUrl: 'https://rsvpify.com/',
     technologies: ['Laravel','Vue.js','TypeScript','Tailwind CSS','MySQL','PostgreSQL','AWS', 'Git'],
@@ -29,7 +47,7 @@ const companyGroups = ref<CompanyGroup[]>([
         employmentType: 'Full-time',
         location: 'Chicago, Illinois, United States · Remote',
         startDate: '2025-01-01',
-        endDate: null, // Present
+        endDate: '2025-11-01',
         responsibilities: [
           'Combined senior-level technical ownership with leadership and coordination responsibilities. Oversaw a cross-functional pod, driving technical excellence, process improvement, and mentorship.',
           'Led a multidisciplinary engineering pod, balancing hands-on development with technical guidance and mentorship.',
