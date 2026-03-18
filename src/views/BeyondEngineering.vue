@@ -180,8 +180,8 @@ function isVoluntary(location: string) {
                  :class="i % 2 === 0 ? 'from-blue-700 to-cyan-600' : 'from-purple-700 to-pink-600'">
               <div class="flex items-center gap-3 mb-4">
                 <div v-if="ed.universityLogo || ed.facultyLogo" class="flex items-center gap-3">
-                  <img v-if="ed.universityLogo" :src="ed.universityLogo" class="h-10 w-10 rounded-full ring-1 ring-white/20 p-1" />
-                  <img v-if="ed.facultyLogo" :src="ed.facultyLogo" class="h-10 w-10 rounded-full ring-1 ring-white/20 p-1" />
+                  <img v-if="ed.universityLogo" :src="ed.universityLogo" alt="University logo" class="h-10 w-10 rounded-full ring-1 ring-white/20 p-1" />
+                  <img v-if="ed.facultyLogo" :src="ed.facultyLogo" alt="Faculty logo" class="h-10 w-10 rounded-full ring-1 ring-white/20 p-1" />
                 </div>
               </div>
               <h3 class="text-lg font-semibold leading-snug">{{ ed.degree }}</h3>
@@ -265,12 +265,12 @@ function isVoluntary(location: string) {
           <article
             v-for="(interest, i) in interests"
             :key="i"
-            class="rounded-2xl ring-1 ring-white/10 overflow-hidden"
+            class="rounded-2xl ring-1 ring-white/10 overflow-hidden h-full flex flex-col"
           >
             <div class="p-6 bg-gradient-to-br text-white" :class="interest.gradient">
               <h2 class="text-xl md:text-2xl font-bold leading-snug">{{ interest.title }}</h2>
             </div>
-            <div class="px-6 py-5 bg-slate-900/40 backdrop-blur">
+            <div class="px-6 py-5 bg-slate-900/40 backdrop-blur flex-1">
               <p class="text-gray-200">{{ interest.description }}</p>
             </div>
           </article>
