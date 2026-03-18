@@ -7,7 +7,7 @@
 
 ---
 
-### Visit website: https://ramicbenjamin.github.io
+### Visit website: https://ramicbenjamin.com
 
 ## 🧭 Overview
 
